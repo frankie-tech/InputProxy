@@ -60,21 +60,18 @@
 				<input type="text" readonly value="{}" id="input-proxy" />
 				<p>Formatted Output</p>
 				<pre><code><output id="output"></output></code></pre>
-				<p>Previous Values</p>
-				<pre><code><output id="prev"></output></code></pre>
 			</div>
 		</main>
 		<script type="module">
-			import inputProxy from './dist/input-proxy.js';
+			import { IP as InputProxy } from './dist/input-proxy.js';
 
 			const input = document.getElementById('input-proxy'),
 				key = document.getElementById('key'),
 				prop = document.getElementById('prop'),
 				button = document.getElementById('button'),
-				output = document.getElementById('output'),
-				prev = document.getElementById('prev');
+				output = document.getElementById('output');
 
-			const wrapperInput = inputProxy(input);
+			const wrapperInput = InputProxy(input);
 
 			button.addEventListener('click', () => {
 				if (key.value === '' || prop.value === '') return;
@@ -83,12 +80,6 @@
 
 				output.textContent = JSON.stringify(
 					JSON.parse(wrapperInput.__value),
-					null,
-					4,
-				);
-
-				prev.textContent = JSON.stringify(
-					wrapperInput.__input_proxy_prev,
 					null,
 					4,
 				);

@@ -15,8 +15,10 @@ Pass in an HTMLInputElement, and then the value becomes a JSON object that you c
 #### Example
 
 ```js
+import { IP } from '../input-proxy.js';
+
 const input = document.getElementById('StoresJSON');
-const wrappedInput = InputProxy(input);
+const wrappedInput = IP(input);
 
 wrappedInput.name = 'John'; //
 
@@ -37,7 +39,7 @@ wrappedInput.name; // null
 You can access the value of the input directly using `__value` as a key.
 
 ```js
-const wrappedInput = InputProxy(input);
+const wrappedInput = IP(input);
 
 wrappedInput.name = 'John';
 
