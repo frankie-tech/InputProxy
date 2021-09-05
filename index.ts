@@ -16,44 +16,24 @@ const deepCheck = (object: object, keys: string[]) => {
 		keys,
 	}
 }*/
-const InputProxy = (el: HTMLInputElement) => {
-	if (el.value === '') el.value = '{}'
-
-	let p = new Proxy(el, {
-		set(el: HTMLInputElement, key: string, value: unknown) {
-
-			const json: object = JSON.parse(el.value);
-
-			json[key] = value;
-			el.value = JSON.stringify(json);
-
-			return true;
-		},
-		get(el: HTMLInputElement, key: string) {
-			if (key === '__value') return el.value;
-
-			const json = JSON.parse(el.value);
-
-			if (key in json === false) {
-				console.warn('Missing key in value, returning null.');
-				return null;
+let _: object, v: string = 'value', p = JSON.parse, s = JSON.stringify,
+	IP = (el: HTMLInputElement) => {
+		el[v] = '{}';
+		return new Proxy(el, {
+			set(x: HTMLInputElement, k: string, u: unknown) {
+				(_ = p(el[v]))[k] = u;
+				el[v] = s(_);
+				return !0;
+			},
+			get: (x: HTMLInputElement, key: string) => key === '__' + v ? el[v] : p(el[v])[key],
+			deleteProperty(x: HTMLInputElement, key: string) {
+				delete (_ = p(el[v]))[key];
+				el[v] = s(_);
+				return !0;
 			}
+		});
+	}
 
-			return json[key];
-		},
-		deleteProperty(el, key) {
-			const json = JSON.parse(el.value);
-
-			if (key in json === false) {
-				console.warn('Missing key, returning false.');
-				return false;
-			}
-
-			return Reflect.deleteProperty(json, key);
-		}
-	});
-
-	return p;
-}
-
-export default InputProxy;
+export {
+	IP
+};
