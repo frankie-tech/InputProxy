@@ -1,1 +1,98 @@
-!
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Input Proxy</title>
+		<style>
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+			}
+			html,
+			body {
+				font-size: 16px;
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+					Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+					'Helvetica Neue', sans-serif;
+				line-height: 1.1;
+			}
+			main,
+			header {
+				margin: 0 auto;
+				width: clamp(414px, 75vw, 992px);
+			}
+
+			* + * {
+				margin-top: 0.5em;
+			}
+			pre > code {
+				tab-size: 4;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<h1>Input Proxy</h1>
+			<h2>
+				A proxy to interpret JSON changes, making it easier to store and
+				retrieve values from a stringified JSON object.
+			</h2>
+		</header>
+		<main>
+			<div class="input-container">
+				<div class="input-col">
+					<label for="key" id="inputLabel">Enter Key</label>
+					<input type="text" id="key" />
+				</div>
+				<div class="input-col">
+					<label for="prop">Enter Property</label>
+					<input type="text" id="prop" />
+				</div>
+				<div class="input-col">
+					<button id="button">Add property</button>
+				</div>
+			</div>
+			<div class="input-container">
+				<p>Input</p>
+				<input type="text" readonly value="{}" id="input-proxy" />
+				<p>Formatted Output</p>
+				<pre><code><output id="output"></output></code></pre>
+				<p>Previous Values</p>
+				<pre><code><output id="prev"></output></code></pre>
+			</div>
+		</main>
+		<script type="module">
+			import inputProxy from './dist/input-proxy.js';
+
+			const input = document.getElementById('input-proxy'),
+				key = document.getElementById('key'),
+				prop = document.getElementById('prop'),
+				button = document.getElementById('button'),
+				output = document.getElementById('output'),
+				prev = document.getElementById('prev');
+
+			const wrapperInput = inputProxy(input);
+
+			button.addEventListener('click', () => {
+				if (key.value === '' || prop.value === '') return;
+
+				wrapperInput[key.value] = prop.value;
+
+				output.textContent = JSON.stringify(
+					JSON.parse(wrapperInput.__value),
+					null,
+					4,
+				);
+
+				prev.textContent = JSON.stringify(
+					wrapperInput.__input_proxy_prev,
+					null,
+					4,
+				);
+			});
+		</script>
+	</body>
+</html>
