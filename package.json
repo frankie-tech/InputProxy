@@ -1,16 +1,22 @@
 {
 	"name": "input-proxy",
 	"version": "1.0.0",
+	"description": "Removes some of the hassle when storing JSON in an input.",
 	"main": "index.js",
 	"author": "Frankie <26461046+frankie-tech@users.noreply.github.com>",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/frankie-tech/InputProxy.git"
+	},
 	"license": "MIT",
+	"types": "./dist/input-proxy.js",
 	"source": "./index.ts",
 	"exports": "./dist/input-proxy.js",
 	"scripts": {
 		"watch": "microbundle watch -f=modern -o=dist/ --raw=true",
 		"build": "microbundle -f=modern -o=dist/"
 	},
-	"dependencies": {
+	"devDependencies": {
 		"microbundle": "^0.13.3"
 	}
 }
