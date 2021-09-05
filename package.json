@@ -9,8 +9,8 @@
 		"url": "https://github.com/frankie-tech/InputProxy.git"
 	},
 	"license": "MIT",
-	"types": "./dist/input-proxy.js",
 	"source": "./index.ts",
+	"types": "./dist/input-proxy.js",
 	"exports": "./dist/input-proxy.js",
 	"scripts": {
 		"watch": "microbundle watch -f=modern -o=dist/ --raw=true",

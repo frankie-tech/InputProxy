@@ -16,7 +16,8 @@ const deepCheck = (object: object, keys: string[]) => {
 		keys,
 	}
 }*/
-let _: object, v: string = 'value', p = JSON.parse, s = JSON.stringify,
+
+let _: object, v = 'value', p = JSON.parse, s = JSON.stringify,
 	IP = (el: HTMLInputElement) => {
 		el[v] = '{}';
 		return new Proxy(el, {
