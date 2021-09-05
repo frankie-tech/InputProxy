@@ -1,0 +1,2 @@
+var e=e=>{new Proxy(e,{set(e,r,n){const t=JSON.parse(e.value||"{}");return r in t&&(t["__prev_"+r]=t[r]),t[r]=n,!0},get(e,r){const n=JSON.parse(e.value||"{}");return r in n==0?(console.warn("Missing key in value, returning null."),null):n[r]},deleteProperty(e,r){const n=JSON.parse(e.value||"{}");if(r in n==0)return console.warn("Key was not in JSON, returning false."),!1;if(Reflect.deleteProperty(n,r),r in n)throw Error("Key is still in JSON????");return!0}})};export{e as default};
+//# sourceMappingURL=input-proxy.js.map
