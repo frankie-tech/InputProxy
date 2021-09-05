@@ -17,18 +17,29 @@ const deepCheck = (object: object, keys: string[]) => {
 	}
 }*/
 
-export default (el: HTMLInputElement) => {
+type InputProxyOptions = {
+	prevKey?: string;
+}
+
+export default (el: HTMLInputElement, options: InputProxyOptions = {}) => {
+	let prevKey = options.prevKey || '__input_proxy_prev';
+	el[prevKey] = {};
 	let p = new Proxy(el, {
 		set(el: HTMLInputElement, key: string, value: unknown) {
+
 			const json = JSON.parse(el.value || '{}');
 
-			if (key in json) json['__prev_' + key] = json[key];
+			if (key in json) el[prevKey][prevKey + '_' + key] = json[key];
 
 			json[key] = value;
+			el.value = JSON.stringify(json);
 
 			return true;
 		},
 		get(el: HTMLInputElement, key: string) {
+			if (key === '__value') return el.value;
+			if (key === prevKey) return el[prevKey];
+
 			const json = JSON.parse(el.value || '{}');
 
 			if (key in json === false) {
@@ -52,5 +63,7 @@ export default (el: HTMLInputElement) => {
 
 			return true;
 		}
-	})
+	});
+
+	return p;
 }
