@@ -1,2 +1,0 @@
-const e=e=>(""===e.value&&(e.value="{}"),new Proxy(e,{set(e,n,r){const l=JSON.parse(e.value);return l[n]=r,e.value=JSON.stringify(l),!0},get(e,n){if("__value"===n)return e.value;const r=JSON.parse(e.value);return n in r==0?(console.warn("Missing key in value, returning null."),null):r[n]},deleteProperty(e,n){const r=JSON.parse(e.value);return n in r==0?(console.warn("Missing key, returning false."),!1):Reflect.deleteProperty(r,n)}}));export{e as default};
-//# sourceMappingURL=input-proxy.js.map
