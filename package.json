@@ -7,7 +7,8 @@
 	"source": "./index.ts",
 	"exports": "./dist/input-proxy.js",
 	"scripts": {
-		"watch": "microbundle watch -f=modern -o=dist/ --raw=true"
+		"watch": "microbundle watch -f=modern -o=dist/ --raw=true",
+		"build": "microbundle -f=modern -o=dist/"
 	},
 	"dependencies": {
 		"microbundle": "^0.13.3"
