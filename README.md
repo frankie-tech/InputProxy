@@ -36,16 +36,6 @@ delete wrappedInput.name;
 wrappedInput.name; // null
 ```
 
-You can access the value of the input directly using `__value` as a key.
-
-```js
-const wrappedInput = IP(input);
-
-wrappedInput.name = 'John';
-
-wrappedInput.__value; // '{ "name":"John" }'
-```
-
 **WARNING**
 
 To prevent issues with `JSON.stringify`, on creation InputProxy sets the value of the element passed in to be `'{}'`.
