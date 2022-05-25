@@ -1,3 +1,6 @@
+/**
+ * InputProxy: An Uncomfortably Minified Proxy That JSONifies Your Objects For You
+ */
 // TODO: get deeply nested JSON values
 /*
 const type = (obj: unknown) => Object.prototype.toString.call(obj);
@@ -17,20 +20,23 @@ const deepCheck = (object: object, keys: string[]) => {
 	}
 }*/
 
-let _: object, v = 'value', p = JSON.parse, s = JSON.stringify,
+let _: object, val = 'value', par = JSON.parse, str = JSON.stringify,
 	IP = (el: HTMLInputElement) => {
-		el[v] = '{}';
+		el[val] = el[val] === '' ? '{}' : el[val];
 		return new Proxy(el, {
 			set(x: HTMLInputElement, k: string, u: unknown) {
-				(_ = p(el[v]))[k] = u;
-				el[v] = s(_);
+				(_ = par(x[val]))[k] = u;
+				x[val] = str(_);
 				return !0;
 			},
-			get: (x: HTMLInputElement, key: string) => key === '__' + v ? el[v] : p(el[v])[key],
+			get: (x: HTMLInputElement, key: string) => key === '__' + val ? x[val] : par(x[val])[key],
 			deleteProperty(x: HTMLInputElement, key: string) {
-				delete (_ = p(el[v]))[key];
-				el[v] = s(_);
+				delete (_ = par(x[val]))[key];
+				x[val] = str(_);
 				return !0;
+			},
+			ownKeys(x: HTMLInputElement) {
+				return Object.keys(par(x[val]));
 			}
 		});
 	}
