@@ -1,2 +1,2 @@
-let e,t="value",r=JSON.parse,l=JSON.stringify,o=o=>(o[t]="{}",new Proxy(o,{set:(p,s,y)=>((e=r(o[t]))[s]=y,o[t]=l(e),!0),get:(e,l)=>l==="__"+t?o[t]:r(o[t])[l],deleteProperty:(p,s)=>(delete(e=r(o[t]))[s],o[t]=l(e),!0)}));export{o as IP};
+let e,t="value",r=JSON.parse,s=JSON.stringify,y=y=>(y[t]=""===y[t]?"{}":y[t],new Proxy(y,{set:(y,l,o)=>((e=r(y[t]))[l]=o,y[t]=s(e),!0),get:(e,s)=>s==="__"+t?e[t]:r(e[t])[s],deleteProperty:(y,l)=>(delete(e=r(y[t]))[l],y[t]=s(e),!0),ownKeys:e=>Object.keys(r(e[t]))}));export{y as IP};
 //# sourceMappingURL=input-proxy.js.map
