@@ -77,13 +77,25 @@
 				if (key.value === '' || prop.value === '') return;
 
 				wrappedInput[key.value] = prop.value;
-
+				
+				addDeepValue();
 				output.textContent = JSON.stringify(
 					JSON.parse(wrappedInput.__value),
 					null,
 					4,
 				);
 			});
+
+
+			const addDeepValue = () => {
+				const firstKey = Reflect.ownKeys(wrappedInput);
+				wrappedInput[firstKey] = {
+					nameParts: [
+						'something',
+						'something2'
+					]
+				}
+			}
 		</script>
 	</body>
 </html>
